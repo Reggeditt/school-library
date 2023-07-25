@@ -9,4 +9,8 @@ class Student < Person
     def play_hooky
         return "¯\(ツ)/¯"
     end
+
+    def correct_name
+        @name
+    end
 end
