@@ -1,19 +1,15 @@
-# frozen_string_literal: true
-
-require './student'
+require_relative 'student'
 
 class Classroom
-  attr_accessor :label
+  attr_accessor :label, :students
 
   def initialize(label)
     @label = label
-    @students = [] # We'll store the students in an array
+    @students = []
   end
 
   def add_student(student)
     @students << student
     student.classroom = self
   end
-
-  attr_reader :students
 end

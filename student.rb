@@ -1,20 +1,18 @@
-# frozen_string_literal: true
-
-require './person'
+require_relative 'person'
 
 class Student < Person
-  attr_accessor :classroom
+  attr_reader :classroom
 
-  def initialize(classroom, name, age, id, parent_permission = 'unknown')
-    @classroom = classroom
-    super(name, age, id, parent_permission)
+  def initialize(classroom1, age, name = 'unknown', parent_permmission: true)
+    super(age, name, parent_permmission)
+    @classroom = classroom(classroom1)
+  end
+
+  def classroom=(classroom)
+    classroom.students.push(self) unless classroom.students.include?(self)
   end
 
   def play_hooky
-    "¯\(ツ)/¯"
-  end
-
-  def correct_name
-    @name
+    '¯\(ツ)/¯'
   end
 end

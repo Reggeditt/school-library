@@ -1,20 +1,31 @@
-# frozen_string_literal: true
+require_relative 'nameable'
+require_relative 'rental'
 
-require './nameable'
 class Person < Nameable
-  def initialize(name, age, id, _parent_permission = 'unknown')
+  attr_accessor :name, :age, :rental
+  attr_reader :id
+
+  # Constructor
+  def initialize(age, name = 'unknown', parent_permission: true)
+    super()
+    @id = Random.rand(1...1000)
     @name = name
-    @id = id
     @age = age
-    super
+    @parent_permission = parent_permission
+    @rentals = []
   end
 
-  def can_use_services?
-    @parent_permission == 'yes' || of_age?
+  def can_use_service?
+    @parent_permission || of_age?
   end
 
   def correct_name
     @name
+  end
+
+  def add_rental(rental)
+    @rentals.push(rental)
+    rental.person(self)
   end
 
   private
@@ -23,12 +34,3 @@ class Person < Nameable
     @age >= 18
   end
 end
-
-person = Person.new('Maximilianus', 22, 'some_id')
-puts person.correct_name
-
-capitalized_person = CapitalizeDecorator.new(person)
-puts capitalized_person.correct_name
-
-capitalized_trimmed_person = TrimmerDecorator.new(capitalized_person)
-puts capitalized_trimmed_person.correct_name

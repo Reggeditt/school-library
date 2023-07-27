@@ -1,9 +1,10 @@
-# frozen_string_literal: true
+require_relative 'nameable'
 
-require './nameable'
-require './person'
-class Decorator < Nameable
+class BaseDecorator < Nameable
+  attr_accessor :nameable
+
   def initialize(nameable)
+    super()
     @nameable = nameable
   end
 
