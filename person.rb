@@ -10,6 +10,10 @@ class Person < Nameable
         @parent_permission == "yes" || self.of_age?
     end
  
+    def correct_name
+        @name
+    end
+
     private
     def of_age?
         @age >= 18
